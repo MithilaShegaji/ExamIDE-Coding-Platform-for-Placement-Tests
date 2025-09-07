@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}Test Details{% endblock %}
+
+{% block content %}
+    <h1>{{ test.name }} <span class="badge badge-secondary">{{ test.duration_minutes }} mins</span></h1>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h3>MCQ Questions</h3>
+            <ul class="list-group mb-3">
+                {% for q in test.mcq_questions %}
+                    <li class="list-group-item">{{ q.question_text[:80] }}...</li>
+                {% else %}
+                    <li class="list-group-item">No MCQ questions yet.</li>
+                {% endfor %}
+            </ul>
+            <a href="{{ url_for('main.add_mcq_question', test_id=test.id) }}" class="btn btn-primary">Add MCQ Question</a>
+        </div>
+        <div class="col-md-6">
+            <h3>Coding Questions</h3>
+            <ul class="list-group mb-3">
+                {% for q in test.coding_questions %}
+                    <li class="list-group-item">{{ q.problem_statement[:80] }}...</li>
+                {% else %}
+                    <li class="list-group-item">No coding questions yet.</li>
+                {% endfor %}
+            </ul>
+            <a href="{{ url_for('main.add_coding_question', test_id=test.id) }}" class="btn btn-info">Add Coding Question</a>
+        </div>
+    </div>
+{% endblock %}

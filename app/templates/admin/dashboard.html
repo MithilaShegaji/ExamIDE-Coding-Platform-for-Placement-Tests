@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Admin Dashboard</h1>
+        <a href="{{ url_for('main.create_test') }}" class="btn btn-success">Create New Test</a>
+    </div>
+
+    <h2>Existing Tests</h2>
+    <ul class="list-group">
+        {% for test in tests %}
+            <li class="list-group-item">
+                <a href="{{ url_for('main.view_test', test_id=test.id) }}">{{ test.name }}</a>
+                <span class="badge badge-info">{{ test.duration_minutes }} mins</span>
+            </li>
+        {% else %}
+            <li class="list-group-item">No tests found. Create one!</li>
+        {% endfor %}
+    </ul>
+{% endblock %}

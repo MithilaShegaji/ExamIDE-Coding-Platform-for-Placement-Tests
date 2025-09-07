@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}Create Test{% endblock %}
+
+{% block content %}
+    <h1>Create a New Test</h1>
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.name.label }}
+            {{ form.name(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.duration_minutes.label }}
+            {{ form.duration_minutes(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+{% endblock %}

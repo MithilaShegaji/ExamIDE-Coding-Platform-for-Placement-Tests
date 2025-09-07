@@ -1,0 +1,71 @@
+
+
+{% extends "base.html" %}
+
+{% block title %}Add Coding Question{% endblock %}
+
+{% block content %}
+    <h1>Add Coding Question to: {{ test.name }}</h1>
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        
+        <div class="form-group">
+            {{ form.problem_statement.label(class="font-weight-bold") }}
+            {{ form.problem_statement(class="form-control", rows=6) }}
+        </div>
+        
+        <div class="row">
+            <div class="form-group col-md-6">
+                {{ form.marks.label(class="font-weight-bold") }}
+                {{ form.marks(class="form-control") }}
+            </div>
+            <div class="form-group col-md-6">
+                {{ form.difficulty.label(class="font-weight-bold") }}
+                {{ form.difficulty(class="form-control") }}
+            </div>
+        </div>
+
+        <hr>
+        <h3>Starter Code (Optional)</h3>
+        <div class="form-group">
+            {{ form.starter_code_python.label }}
+            {{ form.starter_code_python(class="form-control", rows=4) }}
+        </div>
+        <div class="form-group">
+            {{ form.starter_code_java.label }}
+            {{ form.starter_code_java(class="form-control", rows=4) }}
+        </div>
+        <div class="form-group">
+            {{ form.starter_code_cpp.label }}
+            {{ form.starter_code_cpp(class="form-control", rows=4) }}
+        </div>
+        <div class="form-group">
+            {{ form.starter_code_c.label }}
+            {{ form.starter_code_c(class="form-control", rows=4) }}
+        </div>
+        <div class="form-group">
+            {{ form.starter_code_javascript.label }}
+            {{ form.starter_code_javascript(class="form-control", rows=4) }}
+        </div>
+        
+        <hr>
+        <h3>Test Cases (Minimum 2)</h3>
+        <div id="test-cases-container">
+            {% for test_case_form in form.test_cases %}
+                <div class="test-case-form">
+                    <h4>Test Case {{ loop.index }}</h4>
+                    <div class="form-group">
+                        {{ test_case_form.input.label }}
+                        {{ test_case_form.input(class="form-control", rows=2) }}
+                    </div>
+                    <div class="form-group">
+                        {{ test_case_form.expected_output.label }}
+                        {{ test_case_form.expected_output(class="form-control", rows=2) }}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+        
+        {{ form.submit(class="btn btn-primary mt-3") }}
+    </form>
+{% endblock %}

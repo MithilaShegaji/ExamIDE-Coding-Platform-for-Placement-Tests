@@ -1,0 +1,131 @@
+<!-- {% extends "base.html" %}
+
+{% block title %}Add MCQ Question{% endblock %}
+
+{% block content %}
+    <h1>Add MCQ Question to: {{ test.name }}</h1>
+    <form method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.question_text.label }}
+            {{ form.question_text(class="form-control", rows=3) }}
+        </div>
+        <div class="form-group">
+            {{ form.option_a.label }}
+            {{ form.option_a(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.option_b.label }}
+            {{ form.option_b(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.option_c.label }}
+            {{ form.option_c(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.option_d.label }}
+            {{ form.option_d(class="form-control") }}
+        </div>
+        <div class="form-group">
+            {{ form.correct_option.label }}
+            {{ form.correct_option(class="form-control") }}
+        </div>
+        {{ form.submit(class="btn btn-primary") }}
+    </form>
+{% endblock %} -->
+
+
+
+<!-- {% extends "base.html" %}
+
+{% block title %}Add MCQ Question{% endblock %}
+
+{% block content %}
+<style>
+    .option-entry {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .option-entry .form-control {
+        flex-grow: 1;
+        margin-right: 10px;
+    }
+</style>
+
+<h1>Add MCQ Question to: {{ test.name }}</h1>
+<form method="POST" novalidate id="mcq-form">
+    {{ form.hidden_tag() }}
+    
+    <div class="form-group">
+        {{ form.question_text.label(class="font-weight-bold") }}
+        {{ form.question_text(class="form-control", rows=3) }}
+    </div>
+    
+    <div class="form-group">
+        {{ form.marks.label(class="font-weight-bold") }}
+        {{ form.marks(class="form-control", style="max-width: 200px;") }}
+    </div>
+
+    <hr>
+    <h3>Options</h3>
+    <p>Select the correct answer by choosing the corresponding radio button.</p>
+
+    <div id="options-container">
+        {% for option_form in form.options %}
+        <div class="option-entry" id="option-{{ loop.index0 }}">
+            {{ form.correct_option(value=loop.index0, id='correct_option-' ~ loop.index0) }}
+            {{ option_form.option_text(class="form-control", placeholder="Enter option text") }}
+            <button type="button" class="btn btn-danger btn-sm remove-option-btn">Remove</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <button type="button" id="add-option-btn" class="btn btn-secondary mt-2">Add Another Option</button>
+    
+    <hr>
+    {{ form.submit(class="btn btn-primary mt-3") }}
+</form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const optionsContainer = document.getElementById('options-container');
+    const addOptionBtn = document.getElementById('add-option-btn');
+    let optionCount = {{ form.options|length|tojson|safe }};
+
+
+    function updateRemoveButtons() {
+        const removeButtons = document.querySelectorAll('.remove-option-btn');
+        if (optionsContainer.children.length <= 2) {
+            removeButtons.forEach(btn => btn.style.display = 'none');
+        } else {
+            removeButtons.forEach(btn => btn.style.display = 'inline-block');
+        }
+    }
+
+    addOptionBtn.addEventListener('click', function() {
+        const newOptionHTML = `
+            <div class="option-entry" id="option-${optionCount}">
+                <input type="radio" name="correct_option" value="${optionCount}" id="correct_option-${optionCount}">
+                <input type="text" name="options-${optionCount}-option_text" class="form-control" placeholder="Enter option text">
+                <button type="button" class="btn btn-danger btn-sm remove-option-btn">Remove</button>
+            </div>
+        `;
+        optionsContainer.insertAdjacentHTML('beforeend', newOptionHTML);
+        optionCount++;
+        updateRemoveButtons();
+    });
+
+    optionsContainer.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('remove-option-btn')) {
+            if (optionsContainer.children.length > 2) {
+                e.target.closest('.option-entry').remove();
+                updateRemoveButtons();
+            }
+        }
+    });
+    
+    updateRemoveButtons();
+});
+</script>
+{% endblock %} -->

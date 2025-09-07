@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}Add MCQ Question{% endblock %}
+
+{% block content %}
+<style>
+    /* Simple styling for the dynamic option fields */
+    .option-entry {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    .option-entry .form-control {
+        flex-grow: 1;
+        margin-left: 10px; /* Add space between radio and text */
+        margin-right: 10px;
+    }
+    .option-entry .btn-danger {
+        flex-shrink: 0; /* Prevents the remove button from shrinking */
+    }
+</style>
+
+<h1>Add MCQ Question to: {{ test.name }}</h1>
+<form method="POST" novalidate id="mcq-form">
+    {{ form.hidden_tag() }}
+    
+    <div class="form-group">
+        {{ form.question_text.label(class="font-weight-bold") }}
+        {{ form.question_text(class="form-control", rows=3) }}
+    </div>
+    
+    <div class="form-group">
+        {{ form.marks.label(class="font-weight-bold") }}
+        {{ form.marks(class="form-control", style="max-width: 200px;") }}
+    </div>
+
+    <hr>
+    <h3>Options</h3>
+    <p>Select the correct answer by choosing the corresponding radio button. A minimum of 2 options is required.</p>
+
+    <div id="options-container">
+        {#
+          This is the corrected loop.
+          Instead of rendering the whole RadioField, we loop through each individual choice.
+          'radio_choice' becomes a single <input type="radio"> tag.
+          We then get the matching text box using the loop's index.
+        #}
+        {% for radio_choice in form.correct_option %}
+        <div class="option-entry" data-index="{{ loop.index0 }}">
+            <!-- 1. Render just the radio button input -->
+            {{ radio_choice(class="form-check-input") }} 
+            
+            <!-- 2. Render the corresponding text input field -->
+            {{ form.options[loop.index0].option_text(class="form-control", placeholder="Enter option text for Option " ~ loop.index) }}
+            
+            <!-- 3. Render the remove button -->
+            <button type="button" class="btn btn-danger btn-sm remove-option-btn">Remove</button>
+        </div>
+        {% endfor %}
+    </div>
+
+    <button type="button" id="add-option-btn" class="btn btn-secondary mt-2">Add Another Option</button>
+    
+    <hr>
+    {{ form.submit(class="btn btn-primary mt-3") }}
+</form>
+
+<script>
+// This JavaScript remains the same, as it was already correct.
+document.addEventListener('DOMContentLoaded', function() {
+    const optionsContainer = document.getElementById('options-container');
+    const addOptionBtn = document.getElementById('add-option-btn');
+    let optionCount = optionsContainer.children.length;
+
+    function updateRemoveButtons() {
+        const removeButtons = document.querySelectorAll('.remove-option-btn');
+        const show = optionsContainer.children.length > 2;
+        removeButtons.forEach(btn => {
+            btn.style.display = show ? 'inline-block' : 'none';
+        });
+    }
+
+    addOptionBtn.addEventListener('click', function() {
+        const newIndex = optionsContainer.children.length;
+        const newOptionDiv = document.createElement('div');
+        newOptionDiv.classList.add('option-entry');
+        newOptionDiv.setAttribute('data-index', newIndex);
+
+        const newOptionHTML = `
+            <input class="form-check-input" type="radio" name="correct_option" value="${newIndex}" id="correct_option-${newIndex}">
+            <input type="text" name="options-${newIndex}-option_text" class="form-control" placeholder="Enter option text for Option ${newIndex + 1}" required>
+            <button type="button" class="btn btn-danger btn-sm remove-option-btn">Remove</button>
+        `;
+        
+        newOptionDiv.innerHTML = newOptionHTML;
+        optionsContainer.appendChild(newOptionDiv);
+        updateRemoveButtons();
+    });
+
+    optionsContainer.addEventListener('click', function(e) {
+        if (e.target && e.target.classList.contains('remove-option-btn')) {
+            if (optionsContainer.children.length > 2) {
+                e.target.closest('.option-entry').remove();
+                updateRemoveButtons();
+            }
+        }
+    });
+    
+    updateRemoveButtons();
+});
+</script>
+{% endblock %}
