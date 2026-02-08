@@ -1,4 +1,4 @@
-# PrepZero V2 - Database Models
+# Exam IDE - coding platform - Database Models
 Link: https://app.eraser.io/workspace/pXYN2sBX93j66ccyIk9I
 ## 1️⃣ User Model
 
