@@ -19,7 +19,7 @@
 
 ## System Overview
 
-### Tech Stack
+### New Tech Stack
 
 | Layer | Technology |
 |-------|------------|
