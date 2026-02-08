@@ -70,7 +70,7 @@
 ## Database Models
 
 ### Entity Relationship Diagram
-
+MODEL SUMMARISE LINK: https://app.eraser.io/workspace/pXYN2sBX93j66ccyIk9I
 ```
 ┌─────────────────────────────────────────────────────────────────────┐
 │                         DATABASE SCHEMA                              │
