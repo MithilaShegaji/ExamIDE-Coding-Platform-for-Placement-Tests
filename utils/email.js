@@ -12,14 +12,14 @@ const sendEmails = async options => {
     debug: true,
 
     auth: {
-      user: 'services@Exam-IDE.co.in',
+      user: 'services@prepzer0.co.in',
       pass: 'loco20014'
     }
   });
   console.log("inside mailer")
 
   const mailOptions = {
-    from: 'services@Exam-IDE.co.in',
+    from: 'services@prepzer0.co.in',
     to: options.email,
     subject: options.subject || "Passoword reset",
     html: options.html || `<h1 style="color : red;">The password reset link is :</h1>  <a href="${options.subject}"> ${options.subject}</a> `
