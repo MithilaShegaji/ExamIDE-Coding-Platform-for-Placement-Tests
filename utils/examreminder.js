@@ -37,7 +37,7 @@ async function scheduleExamReminder(exam) {
 
           console.log(`Sending exam reminders to ${students.length} students for exam: ${exam.name}`);
 
-         
+
           for (const student of students) {
             await sendEmails({
               email: student.email,
@@ -54,17 +54,17 @@ async function scheduleExamReminder(exam) {
                 </ul>
                 <p>Please log in to the system a few minutes before the exam starts.</p>
                 <p>Good luck!</p>
-                <p>PrepZer0 Team</p>
+                <p>Exam-IDE Team</p>
               `
             });
           }
-          
+
           console.log(`Successfully sent reminders for exam: ${exam.name}`);
         } catch (error) {
           console.error(`Error sending exam reminders: ${error}`);
         }
       });
-      
+
       return true;
     } else {
       console.log(`Not scheduling reminder for exam ${exam.name}: reminder time is in the past or exam is draft`);
@@ -83,15 +83,15 @@ async function scheduleAllExamReminders() {
     const now = new Date();
     const upcomingExams = await Exam.find({
       scheduledAt: { $gt: now },
-      testStatus: { $ne: 'draft' } 
+      testStatus: { $ne: 'draft' }
     });
-    
+
     console.log(`Found ${upcomingExams.length} upcoming exams to schedule reminders for`);
-    
+
     for (const exam of upcomingExams) {
       await scheduleExamReminder(exam);
     }
-    
+
     return true;
   } catch (error) {
     console.error('Error scheduling all exam reminders:', error);

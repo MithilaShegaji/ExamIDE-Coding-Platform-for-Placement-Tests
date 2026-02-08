@@ -23,7 +23,7 @@ const s3Client = new S3Client({
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
   }
 });
-const BUCKET_NAME = "prepzer0testbucket";
+const BUCKET_NAME = "Exam-IDEtestbucket";
 //adding rate-linits and other security mechanism
 const rateLimit = require('express-rate-limit')
 const mongoSanitize = require('express-mongo-sanitize')

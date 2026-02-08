@@ -14,7 +14,7 @@ async function uploadProfileImage(localFilePath, filename) {
   const fileStream = fs.createReadStream(localFilePath);
 
   const uploadParams = {
-    Bucket: 'prepzer0testbucket',
+    Bucket: 'Exam-IDEtestbucket',
     Key: `profile/${filename}`,
     Body: fileStream,
     ContentType: 'image/jpeg' // or infer type dynamically
@@ -22,7 +22,7 @@ async function uploadProfileImage(localFilePath, filename) {
 
   await s3.send(new PutObjectCommand(uploadParams));
 
-  return `https://prepzer0testbucket.s3.amazonaws.com/profile/${filename}`;
+  return `https://Exam-IDEtestbucket.s3.amazonaws.com/profile/${filename}`;
 }
 
 module.exports = { uploadProfileImage };
