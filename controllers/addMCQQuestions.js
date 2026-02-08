@@ -2,9 +2,8 @@ const mongoose = require('mongoose');
 const addMCQ = require('../models/MCQschema');
 
 // Connect to MongoDB 'test' database
-mongoose.connect('mongodb+srv://earthlingaidtech:prep@cluster0.zsi3qjh.mongodb.net/bmsitdb?retryWrites=true&w=majority&appName=Cluster0', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
+require('dotenv').config()
+mongoose.connect(process.env.MONGODB_URI).then(() => {
 }).then(() => {
   console.log('Connected to MongoDB');
 }).catch(err => {
